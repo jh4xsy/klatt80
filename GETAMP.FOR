@@ -1,0 +1,29 @@
+C       GETAMP.FOR               D.H. KLATT              8/1/78
+C
+C       CONVERT DB ATTEN. (FROM 96 TO -72) TO A LINEAR SCALE FACTOR.
+C               (TRUNCATE NDB IF OUTSIDE RANGE)
+C
+        FUNCTION GETAMP(NDB)
+C
+        DIMENSION DTABLE(11),STABLE(28)
+        
+        DATA DTABLE/1.8,1.6,1.43,1.26,1.12
+        1,1.0,0.89,0.792,0.702,0.623,0.555/
+        DATA STABLE/65536.,32768.,16384.,8192.
+        1,4096.,2048.,1024.,512.,256.,128.
+        1,64.,32.,16.,8.,4.,2.
+        1,1.,.5,.25,.125,.0625,.0312,.0156,.0078,.0039,.00195
+        1,.000975,.000487/
+C
+650     NDB1=NDB
+        GETAMP=0.
+        IF (NDB1.LE.-72) RETURN
+        IF (NDB1.GT.96) NDB1=96
+        NDB2=NDB1/6
+        NDB3=NDB1-(6*NDB2)
+        XX1=STABLE(17-NDB2)
+        XX2=DTABLE(6-NDB3)
+        GETAMP=XX1*XX2
+660     CONTINUE
+        RETURN
+        END
