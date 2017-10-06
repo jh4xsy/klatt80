@@ -1,0 +1,2 @@
+handsy: HANDSY.FOR PARCOE.FOR COEWAV.FOR SETABC.FOR GETAMP.FOR
+	gfortran -g HANDSY.FOR COEWAV.FOR GETAMP.FOR PARCOE.FOR SETABC.FOR -Wall -O -fimplicit-none -fbounds-check -o handsy
